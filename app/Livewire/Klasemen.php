@@ -19,6 +19,7 @@ class Klasemen extends Component implements HasForms, HasTable
 
     public function table(Table $table): Table
     {
+        // table 
         return $table
             ->query(trackrecord::query())
             ->columns([
