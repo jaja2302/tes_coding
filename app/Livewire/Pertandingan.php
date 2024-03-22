@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Filament\Forms\Components\TextInput;
-use App\Models\namakota;
+use App\Models\trackrecord;
 use App\Models\namaclub;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -122,49 +122,46 @@ class Pertandingan extends Component implements HasForms
     }
     public function create(): void
     {
-        // dd($this->form->getState());
+        dd($this->form->getState());
         $form = $this->form->getState();
-        try {
-            DB::beginTransaction();
-            $trackdata = new namaclub();
-            $trackdata->namaklub = $form['clubsolos'];
-            $trackdata->asalklub = $form['namakota'];
-            // dd($form['members'][0]['clubmulti']);
-            if ($form['members'][0]['clubmulti'] !== null) {
-                foreach ($form['members'] as $data) {
-                    $dataToInsert[] = [
-                        'namaklub' => $data['clubmulti'],
-                        'asalklub' => $data['namakota2'],
-                    ];
-                }
-                dd($dataToInsert);
-                if (!nullOrEmptyString($dataToInsert)) {
-                    namaclub::insert($dataToInsert);
-                }
-            }
-            $trackdata->save();
 
-            DB::commit();
+        $newfor = array();
 
-            Notification::make()
-                ->title('Berhasil disimpan')
-                ->body(' Record berhasil disimpan')
-                ->icon('heroicon-o-document-text')
-                ->iconColor('success')
-                ->color('success')
-                ->success()
-                ->send();
 
-            $this->form->fill();
-        } catch (\Throwable $th) {
-            DB::rollBack();
+        // try {
+        //     DB::beginTransaction();
+        //     $trackdata = new trackrecord();
+        //     $trackdata->namaklub = $form['klub'];
+        //     $trackdata->asalklub = $form['ma'];
+        //     $trackdata->asalklub = $form['me'];
+        //     $trackdata->asalklub = $form['s'];
+        //     $trackdata->asalklub = $form['k'];
+        //     $trackdata->asalklub = $form['gm'];
+        //     $trackdata->asalklub = $form['gk'];
+        //     $trackdata->asalklub = $form['point'];
+        //     $trackdata->save();
 
-            Notification::make()
-                ->title('Error ' . $th->getMessage())
-                ->danger()
-                ->color('danger')
-                ->send();
-        }
+        //     DB::commit();
+
+        //     Notification::make()
+        //         ->title('Berhasil disimpan')
+        //         ->body(' Record berhasil disimpan')
+        //         ->icon('heroicon-o-document-text')
+        //         ->iconColor('success')
+        //         ->color('success')
+        //         ->success()
+        //         ->send();
+
+        //     $this->form->fill();
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+
+        //     Notification::make()
+        //         ->title('Error ' . $th->getMessage())
+        //         ->danger()
+        //         ->color('danger')
+        //         ->send();
+        // }
     }
 
 
